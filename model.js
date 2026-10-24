@@ -163,6 +163,8 @@ var LINES={
     Q('seasonalWhen','Which months, and for how long?','text',{full:true,showIf:['seasonal','Yes'],f:'stock'}),
     Q('fitout','Contents and fit-out (furniture, office equipment, fixtures, fittings)','num',{sum:true,hint:'Do not repeat plant or tools already entered above.'}),
     Q('toolsOff','Tools and equipment kept off site (on job sites, in vehicles or with staff) that do not usually return to the premises','num',{sum:true,f:'plant',full:true,hint:'Portable tools and equipment valued at replacement cost. Leave blank if none.'}),
+    Q('empTools','Do any employees use their own tools for work that are worth more than $5,000 per person?',YN,{full:true,f:'plant',hint:'Employee-owned tools are usually covered up to $5,000 each. Anything above that needs to be listed.'}),
+    Q('empToolsD','Which employees, what tools, and the approximate value of each person\u2019s tools?','area',{full:true,showIf:['empTools','Yes'],f:'plant'}),
     Q('constr','Construction','opt',{full:true,opts:['Concrete or steel','Brick or masonry','Timber frame','Mixed']}),
     Q('epb','Building earthquake-prone or below 34% NBS?','opt',{opts:['No','Yes','Not sure']}),
     Q('spr','Sprinklers fitted?',YN),
