@@ -370,7 +370,7 @@ var AC={cache:{},list:[],tm:null,seq:0};
 var ACABB={rd:'road',st:'street',ave:'avenue',av:'avenue',dr:'drive',pl:'place',cres:'crescent',tce:'terrace',ln:'lane',hwy:'highway',cl:'close',ct:'court',pde:'parade',sq:'square',bvd:'boulevard',blvd:'boulevard',esp:'esplanade'};
 function acNorm(x){return String(x||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
 async function gunz(b64){var bin=atob(String(b64).trim()),u=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)u[i]=bin.charCodeAt(i);return new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream('gzip'))).text()}
-function acShard(k){if(AC.cache[k])return Promise.resolve(AC.cache[k]);return fetch('data/addr/'+k+'.txt').then(function(r){if(!r.ok)throw new Error('x');return r.text()}).then(gunz).then(function(t){var j=JSON.parse(t);AC.cache[k]=j;return j}).catch(function(){return null})}
+function acShard(k){if(AC.cache[k])return Promise.resolve(AC.cache[k]);return fetch(''+k+'.txt').then(function(r){if(!r.ok)throw new Error('x');return r.text()}).then(gunz).then(function(t){var j=JSON.parse(t);AC.cache[k]=j;return j}).catch(function(){return null})}
 function acParse(q){
   var raw=String(q||'').trim(),num='',unit='',rest=acNorm(raw),mm=/^(?:(?:unit|flat)\s*)?([a-z0-9]+)\s*\/\s*(\d+[a-z]?)\s+(.*)$/i.exec(raw);
   if(mm){unit=mm[1].toLowerCase();num=mm[2].toLowerCase();rest=acNorm(mm[3])}

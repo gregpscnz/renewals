@@ -320,7 +320,7 @@ var IND={
   domestic:{name:'Domestic',desc:'',group:'',lines:[],xlines:[],feat:[],profile:[],lineQ:{},ask:{},docs:[],aliases:[]}
 };
 var ALLX=[],DBOK=false;
-var DBFILES=['data/packs.json','data/ind-00.json','data/ind-01.json','data/ind-02.json','data/ind-03.json','data/ind-04.json','data/ind-05.json','data/ind-06.json','data/ind-07.json','data/ind-08.json','data/ind-09.json','data/ind-10.json'];
+var DBFILES=['packs.json','ind-00.json','ind-01.json','ind-02.json','ind-03.json','ind-04.json','ind-05.json','ind-06.json','ind-07.json','ind-08.json','ind-09.json','ind-10.json'];
 function cq(a){return Q(a[0],a[1],a[2],a[3]?JSON.parse(JSON.stringify(a[3])):{});}
 function mergeInd(def,packs){
   var out={name:def.name,desc:def.desc||'',group:def.group||'Other',lines:(def.lines||[]).slice(),xlines:[],feat:[],profile:[],lineQ:{},ask:{},docs:[],aliases:def.aliases||[]};
@@ -342,7 +342,7 @@ function mergeInd(def,packs){
 }
 
 var PACKS={};
-var DBFILES=['data/packs.json','data/ind-00.json','data/ind-01.json','data/ind-02.json','data/ind-03.json','data/ind-04.json','data/ind-05.json','data/ind-06.json','data/ind-07.json','data/ind-08.json'];
+var DBFILES=['packs.json','ind-00.json','ind-01.json','ind-02.json','ind-03.json','ind-04.json','ind-05.json','ind-06.json','ind-07.json','ind-08.json'];
 function nrm(s){return String(s==null?'':s).toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'');}
 function loadDB(){
   return Promise.all(DBFILES.map(function(f){return fetch(f).then(function(r){if(!r.ok)throw new Error(f);return r.json();}).catch(function(){return null;});})).then(function(arr){
