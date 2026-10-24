@@ -1,0 +1,114 @@
+<title>Renewal Portal</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a calm guided form. Slim brand strip, step bar, one question card, and a guidance column that explains each cover and helps set sums insured. */
+:root{
+  --bg:#f1f6f8; --surface:#ffffff; --ink:#0d2b3a; --muted:#51687a; --line:#d3dfe6; --line-strong:#9db3c1;
+  --brand:#0a6f73; --brand-ink:#ffffff; --brand-soft:#d8efee; --sun:#8a5300; --sun-soft:#fbefd6; --bad:#b3261e; --ok:#1c7a3d;
+  --display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif; --sans:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a1a22; --surface:#11262f; --ink:#e4eff4; --muted:#94afbd; --line:#25424f; --line-strong:#4b6b7b;
+  --brand:#45c4bd; --brand-ink:#04201f; --brand-soft:#123b3c; --sun:#f0b35a; --sun-soft:#392b12; --bad:#ff8c82; --ok:#80d69a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a1a22; --surface:#11262f; --ink:#e4eff4; --muted:#94afbd; --line:#25424f; --line-strong:#4b6b7b;
+  --brand:#45c4bd; --brand-ink:#04201f; --brand-soft:#123b3c; --sun:#f0b35a; --sun-soft:#392b12; --bad:#ff8c82; --ok:#80d69a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);padding-block:0 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1060px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.01em;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:clamp(28px,5vw,42px)} h2{font-size:clamp(22px,3.4vw,28px)} h3{font-size:17px}
+p{margin:0}
+a{color:var(--brand)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-block:18px 14px}
+.brand{display:flex;align-items:baseline;gap:10px;font-family:var(--display);font-weight:700}
+.brand b{font-size:20px;letter-spacing:.04em}.brand span{color:var(--muted);font:500 13px var(--sans)}
+.saved{font-size:13px;color:var(--muted)}
+.prog{margin-bottom:18px}
+.bar{display:flex;gap:4px;height:6px}
+.bar i{flex:1;border-radius:3px;background:var(--line)}
+.bar i.on{background:var(--brand)}
+.prog small{display:flex;justify-content:space-between;gap:10px;margin-top:8px;color:var(--muted);font-size:13px}
+.shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:20px;align-items:start}
+.shell>aside{grid-column:2;grid-row:1}.shell>#main{grid-column:1;grid-row:1}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,3vw,30px);display:flex;flex-direction:column;gap:20px}
+.lead{color:var(--muted);font-size:17px;max-width:62ch}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.full{grid-column:1/-1}
+.f{min-width:0;display:flex;flex-direction:column;gap:6px}
+.f>label,.f>.lab{font-weight:600;font-size:15px}
+.hint{color:var(--muted);font-size:13.5px}
+.in{width:100%;min-height:46px;border:1.5px solid var(--line-strong);border-radius:10px;background:var(--surface);color:var(--ink);padding:10px 13px;font:inherit}
+textarea.in{min-height:96px;resize:vertical}
+.in:focus,.btn:focus-visible,.chip:has(input:focus-visible),summary:focus-visible,a:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
+.money{position:relative}.money:before{content:"$";position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.money .in{padding-left:28px;font-family:var(--mono)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line-strong);border-radius:999px;padding:9px 16px;cursor:pointer;background:var(--surface);min-height:44px}
+.chip input{position:absolute;opacity:0;width:1px;height:1px}
+.chip:has(input:checked){background:var(--brand);border-color:var(--brand);color:var(--brand-ink);font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.pick{display:flex;flex-direction:column;gap:6px;border:1.5px solid var(--line-strong);border-radius:12px;padding:16px;cursor:pointer;background:var(--surface)}
+.pick input{position:absolute;opacity:0;width:1px;height:1px}
+.pick:has(input:checked){border-color:var(--brand);box-shadow:inset 0 0 0 1.5px var(--brand);background:var(--brand-soft)}
+.pick:has(input:focus-visible){outline:3px solid var(--brand);outline-offset:2px}
+.pick b{font-family:var(--display);font-size:18px}.pick span{color:var(--muted);font-size:14px}
+.btn{min-height:48px;border-radius:10px;border:1.5px solid var(--line-strong);background:var(--surface);color:var(--ink);padding:10px 20px;font:600 16px var(--sans);cursor:pointer}
+.btn:hover{border-color:var(--brand)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.sm{min-height:38px;padding:6px 14px;font-size:14px}
+.btn[disabled]{opacity:.55;cursor:default}
+.nav{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-top:6px}
+.err{color:var(--bad);font-size:14px;font-weight:500}
+.help{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden}
+.help>summary{padding:16px 20px;font-family:var(--display);font-weight:700;font-size:17px;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
+.help>summary::after{content:"+";color:var(--brand)}.help[open]>summary::after{content:"\2212"}
+.help .hb{padding:0 20px 20px;display:flex;flex-direction:column;gap:14px;font-size:15px}
+.help h4{margin:0 0 4px;font:700 12px var(--sans);letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.help ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.tip{background:var(--sun-soft);color:var(--ink);border-radius:10px;padding:12px 14px;font-size:14.5px;border:1px solid color-mix(in srgb,var(--sun) 40%,transparent)}
+.tip b{color:var(--sun)}
+.calcbtn{align-self:flex-start}
+.calc{border:1.5px dashed var(--brand);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:14px;background:var(--brand-soft)}
+.calc .rows{display:grid;gap:10px}
+.ac{display:flex;flex-direction:column;border:1.5px solid var(--line-strong);border-radius:10px;overflow:hidden;background:var(--surface)}
+.aci{text-align:left;min-height:44px;padding:8px 13px;border:0;border-top:1px solid var(--line);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer}
+.aci:first-child{border-top:0}.aci:hover,.aci:focus-visible{background:var(--brand-soft)}
+.lk{font-size:13.5px;display:flex;flex-wrap:wrap;gap:4px 6px;align-items:baseline}
+.claims{display:flex;flex-direction:column;gap:12px}
+.claimrow{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--surface)}
+@media (max-width:600px){.claimrow{grid-template-columns:1fr}}
+.acn{padding:10px 13px;color:var(--muted);font-size:14px}
+.calc .row{display:grid;grid-template-columns:1fr;gap:4px}
+
+.calc .out{display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap;font-weight:700}
+.calc .out em{font:600 22px var(--mono);font-style:normal}
+.calc .brk{font-size:14px;color:var(--muted)}
+.review{display:flex;flex-direction:column;gap:16px}
+.rsec{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.rsec h3{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}
+.kv{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:4px 14px;font-size:15px}
+.kv dt{color:var(--muted)}.kv dd{margin:0;overflow-wrap:anywhere}
+.legal{display:flex;flex-direction:column;gap:12px;font-size:14.5px;color:var(--muted)}
+.legal b{color:var(--ink);display:block}
+.out-text{width:100%;min-height:220px;font:13px/1.45 var(--mono)}
+.steps{counter-reset:s;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
+.steps li:before{content:counter(s);width:36px;height:36px;border-radius:50%;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;font-weight:700}
+.notice{border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:10px;padding:12px 14px;background:var(--surface);font-size:14.5px}
+.foot{margin-top:26px;color:var(--muted);font-size:13px;display:flex;flex-direction:column;gap:6px}
+.sugg{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--brand-soft);padding:10px 14px;border-radius:10px}
+@media (max-width:919px){.shell{grid-template-columns:1fr}.shell>aside,.shell>#main{grid-column:1}.shell>aside{grid-row:1}.shell>#main{grid-row:2}}
+@media (max-width:600px){.grid{grid-template-columns:1fr}.kv{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:no-preference){.card{animation:rise .25s ease-out}@keyframes rise{from{opacity:.4;transform:translateY(6px)}}}
+</style>
+<div class="wrap">
+  <header class="top"><div class="brand"><b>Renewal Portal</b></div><div class="saved" id="saved" aria-live="polite"></div></header>
+  <nav class="prog" id="prog" aria-label="Progress"></nav>
+  <div class="shell"><aside id="aside"></aside><div id="main"></div></div>
+  <footer class="foot" id="foot"></footer>
+</div>
+<script src="model.js"></script>
+<script src="help.js"></script>
+<script src="app.js"></script>
