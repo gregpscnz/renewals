@@ -3,7 +3,7 @@
 var BROKER={name:'Greg Swaney',role:'Insurance Broker',firm:'',fsp:'473686',email:'gregaibnz@gmail.com',phone:'020 484 5595',mobile:''};
 BROKER.who=BROKER.firm||BROKER.name;
 /* EDIT HERE after hosting the portal on your own site: paste the Google Apps Script web app URL (see apps-script/README). Leave empty to keep the copy-and-email method. Only works when the portal is hosted off claude.ai. */
-var SEND_URL='';
+var SEND_URL='https://script.google.com/macros/s/AKfycbz2Kp0B6chMdMQYOoYgLUwl9Cncl9sT1n6ch3EbR3DNQ3D4T4VGm2RhIdnA2vCgnfbe/exec';
 
 var LINE_HELP={
   house:{short:'Pays to repair or rebuild your home after damage such as fire, storm, flood or burst pipes.',
